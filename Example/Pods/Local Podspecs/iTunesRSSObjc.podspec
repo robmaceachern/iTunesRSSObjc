@@ -10,19 +10,15 @@
 Pod::Spec.new do |s|
   s.name             = "iTunesRSSObjc"
   s.version          = "0.1.0"
-  s.summary          = "A short description of iTunesRSSObjc."
+  s.summary          = "iTunes RSS Objective-C wrapper"
   s.description      = <<-DESC
-                       An optional longer description of iTunesRSSObjc
-
-                       * Markdown format.
-                       * Don't worry about the indent, we strip it!
+                       iTunes RSS Objective-C wrapper
                        DESC
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/iTunesRSSObjc"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
+  s.homepage         = "https://github.com/robmaceachern/iTunesRSSObjc"
   s.license          = 'MIT'
   s.author           = { "Rob MacEachern" => "rob@robmaceachern.com" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/iTunesRSSObjc.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.source           = { :git => "https://github.com/robmaceachern/iTunesRSSObjc.git", :tag => s.version.to_s }
+  s.social_media_url = 'https://twitter.com/robmaceachern'
 
   s.platform     = :ios, '7.0'
   s.requires_arc = true
@@ -32,7 +28,8 @@ Pod::Spec.new do |s|
     'iTunesRSSObjc' => ['Pod/Assets/*.png']
   }
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.public_header_files = 'Pod/Classes/**/*.h'
+  s.dependency 'AFNetworking', '~> 2.5'
+  s.dependency 'Ono', '~> 1.1.3'
+  s.dependency 'AFOnoResponseSerializer', '~> 1.0.0'
 end
