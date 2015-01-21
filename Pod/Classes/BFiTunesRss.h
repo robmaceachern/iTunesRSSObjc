@@ -22,11 +22,4 @@
 
 - (void)customerReviewFeedForContentId:(NSString *)contentId inCountry:(NSString *)countryCode pageNumber:(NSUInteger)pageNumber completion:(void (^)(NSError *error, BFiTunesReviewFeed *reviewFeed))completion;
 
-- (void)allCustomerReviewFeedsForContentId:(NSString *)contentId inCountry:(NSString *)countryCode completion:(void (^)(NSError *error, NSArray *reviewFeeds))completion;
-
-@end
-
-@interface BFiTunesRssReview : NSObject
-
-
 @end
