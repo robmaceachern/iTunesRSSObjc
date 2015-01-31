@@ -17,8 +17,8 @@
 
 - (id)initWithXMLElement:(ONOXMLElement *)element {
     if (self = [super initWithXMLElement:element]) {
-        self._imID = [element firstChildWithTag:@"id"][@"im:id"];
-        self.bundleId = [element firstChildWithTag:@"id"][@"im:bundleId"];
+        self._imID = [element firstChildWithTag:@"id"][@"id"];
+        self.bundleId = [element firstChildWithTag:@"id"][@"bundleId"];
         self.idURL = [[element firstChildWithTag:@"id"] stringValue];
         self.name = [[element firstChildWithTag:@"name" inNamespace:@"im"] stringValue];
         self.contentType = [[BFiTunesContentType alloc] initWithXMLElement:[element firstChildWithTag:@"contentType" inNamespace:@"im"]];
