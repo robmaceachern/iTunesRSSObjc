@@ -57,7 +57,20 @@
                   parameters:nil
                      success:^(NSURLSessionDataTask *task, ONOXMLDocument *responseObject) {
                          BFiTunesReviewFeed *reviewFeed = [[BFiTunesReviewFeed alloc] initWithXMLElement:responseObject.rootElement];
-                         completion(nil, reviewFeed);
+
+                         if (!reviewFeed.mediaEntry && reviewFeed.reviewEntries.count == 0) {
+                             
+                             NSDictionary *userInfo = @{
+                                                        NSLocalizedDescriptionKey: NSLocalizedString(@"Unable to fetch review feed.", nil),
+                                                        NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"The iTunes RSS webservice is not operating properly.", nil),
+                                                        NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Please try again later.", nil)
+                                                        };
+
+                             NSError *error = [NSError errorWithDomain:@"com.robmaceachern.enero" code:90210 userInfo:userInfo];
+                             completion(error, nil);
+                         } else {
+                             completion(nil, reviewFeed);
+                         }
                      }
                      failure:^(NSURLSessionDataTask *task, NSError *error) {
                          completion(error, nil);
