@@ -19,7 +19,7 @@ describe(@"these should pass", ^{
     
     it(@"will get first page of US Facebook reviews", ^AsyncBlock {
         BFiTunesRss *itunesRSS = [[BFiTunesRss alloc] init];
-        [itunesRSS customerReviewFeedForContentId:@"907242701" inCountry:@"us" pageNumber:1 completion:^(NSError *error, BFiTunesReviewFeed *reviewFeed) {
+        [itunesRSS customerReviewFeedForContentId:@"284882215" inCountry:@"us" pageNumber:1 completion:^(NSError *error, BFiTunesReviewFeed *reviewFeed) {
             if (error) {
                 NSLog(@"%@", error.localizedDescription);
                 return;

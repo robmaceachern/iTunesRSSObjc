@@ -36,6 +36,12 @@
         }
         
         self.sessionManager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:configuration];
+        
+        // The iTunes RSS webservice seems to be doing some weird filtering based on UA.
+        // Prepending Mozilla/5.0 seems to make it happy for some reason...
+        NSString *oldUAString = [self.sessionManager.requestSerializer valueForHTTPHeaderField:@"User-Agent"];
+        [self.sessionManager.requestSerializer setValue:[@"Mozilla/5.0 " stringByAppendingString:oldUAString] forHTTPHeaderField:@"User-Agent"];
+        
         self.sessionManager.responseSerializer = [AFOnoResponseSerializer XMLResponseSerializer];
         NSMutableSet *acceptableContentTypes = [NSMutableSet setWithSet:self.sessionManager.responseSerializer.acceptableContentTypes];
         [acceptableContentTypes addObject:@"application/atom+xml"];
