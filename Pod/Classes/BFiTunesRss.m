@@ -31,8 +31,9 @@
         
         if (!configuration) {
             configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-            configuration.HTTPMaximumConnectionsPerHost = 1; // Apple seems to rate-limit requests if you get too agressive
             configuration.URLCache = [[NSURLCache alloc] initWithMemoryCapacity:0 diskCapacity:50 * 1024 * 1024 diskPath:nil];
+            configuration.timeoutIntervalForRequest = 1;
+            configuration.timeoutIntervalForResource = 2;
         }
         
         self.sessionManager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:configuration];
@@ -52,7 +53,10 @@
 
 - (void)customerReviewFeedForContentId:(NSString *)contentId inCountry:(NSString *)countryCode pageNumber:(NSUInteger)pageNumber completion:(void (^)(NSError *error, BFiTunesReviewFeed *reviewFeed))completion {
     
-    NSString *pathString = [NSString stringWithFormat:@"https://itunes.apple.com/%@/rss/customerreviews/page=%zd/id=%@/sortby=mostrecent/xml?urlDesc=/customerreviews/page=%zd/id=%@/sortby=mostrecent/xml", [countryCode lowercaseString], pageNumber, contentId, pageNumber - 1, contentId];
+    NSString *pathString = [NSString stringWithFormat:@"https://itunes.apple.com/%@/rss/customerreviews/id=%@/sortby=mostrecent/xml", [countryCode lowercaseString], contentId];
+    if (pageNumber > 1) {
+        pathString = [NSString stringWithFormat:@"https://itunes.apple.com/%@/rss/customerreviews/page=%zd/id=%@/sortby=mostrecent/xml?urlDesc=/customerreviews/page=%zd/id=%@/sortby=mostrecent/xml", [countryCode lowercaseString], pageNumber, contentId, pageNumber - 1, contentId];
+    }
     [self.sessionManager GET:pathString
                   parameters:nil
                      success:^(NSURLSessionDataTask *task, ONOXMLDocument *responseObject) {
